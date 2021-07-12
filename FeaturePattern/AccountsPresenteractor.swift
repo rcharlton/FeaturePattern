@@ -17,15 +17,13 @@ extension AccountsPresenteractor: AccountsViewStateProviding {
     }
 }
 
-extension AccountsPresenteractor: ViewEventHandling {
-    func viewWillAppear() {
+extension AccountsPresenteractor: AccountsViewActions {
+    func resume() {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
             self.viewStateSubject.value = AccountsViewState(isSetupYourAccountsEnabled: true)
         }
     }
-}
 
-extension AccountsPresenteractor: AccountsViewActions {
     func setupAccounts() {
         print(type(of: self), #function)
     }

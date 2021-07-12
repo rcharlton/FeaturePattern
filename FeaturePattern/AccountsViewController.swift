@@ -7,20 +7,30 @@
 
 import UIKit
 
-protocol ViewEventHandling {
-    func viewDidLoad()
-    func viewWillAppear()
+protocol ViewActions {
+    /// Signal that the view is ready to present state and active behaviours such as timers should begin.
+    func resume()
+
+    /// Signal that the view is no longer presenting state and active behaviours such as timers should pause.
+    func suspend()
 }
 
-extension ViewEventHandling {
-    func viewDidLoad() { }
-    func viewWillAppear() { }
+extension ViewActions {
+    func resume() { }
+    func suspend() { }
 }
 
-protocol AccountsViewActions {
+// MARK: -
+
+/// Actions state WHAT rather than HOW. They are semantic / conceptual and do not mirror the private
+/// internals of the view hierarchy such as button presses and table view cell selections.
+protocol AccountsViewActions: ViewActions {
     func setupAccounts()
 }
 
+/// ViewState captures the entire range of state that the view can present.
+/// View properties are always private and never manipulated from outside the class.
+/// As with ViewActions, ViewState should not explicitly reflect the view hierarchy.
 struct AccountsViewState {
     var isSetupYourAccountsEnabled: Bool
 }
@@ -29,8 +39,10 @@ protocol AccountsViewStateProviding {
     var viewState: Observable<AccountsViewState> { get }
 }
 
+// MARK: -
+
 class AccountsViewController: UIViewController, StateRepresentable {
-    typealias Presenteractor = AccountsViewActions & AccountsViewStateProviding & ViewEventHandling
+    typealias Presenteractor = AccountsViewActions & AccountsViewStateProviding
     typealias State = AccountsViewState
 
     private let setupYourAccountsButton = configure(UIButton(type: .system)) {
@@ -76,18 +88,17 @@ class AccountsViewController: UIViewController, StateRepresentable {
             for: .touchUpInside
         )
 
-        presenteractor.viewDidLoad()
+        presenteractor.resume()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        presenteractor.viewWillAppear()
-    }
+    // MARK: -
 
     func setState(_ state: State, animated isAnimated: Bool) {
         print(#function, state)
         setupYourAccountsButton.isEnabled = state.isSetupYourAccountsEnabled
     }
+
+    // MARK: -
 
     @objc private func setupYourAccountsButtonPressed() {
         presenteractor.setupAccounts()
