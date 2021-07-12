@@ -15,7 +15,10 @@
 		000721EB269C7E040099DB5C /* AccountsPresenteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000721EA269C7E040099DB5C /* AccountsPresenteractor.swift */; };
 		000721EF269C7F1E0099DB5C /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000721EE269C7F1E0099DB5C /* RootViewController.swift */; };
 		000721F4269C865B0099DB5C /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000721F3269C865B0099DB5C /* Configure.swift */; };
-		00072255269C8BD30099DB5C /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00072254269C8BD30099DB5C /* Observer.swift */; };
+		00072255269C8BD30099DB5C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00072254269C8BD30099DB5C /* Observable.swift */; };
+		0007225C269C9D1D0099DB5C /* ValueChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0007225B269C9D1D0099DB5C /* ValueChange.swift */; };
+		0007225F269C9D6C0099DB5C /* Invalidatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0007225E269C9D6C0099DB5C /* Invalidatable.swift */; };
+		00072264269CA4CB0099DB5C /* ObservableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00072263269CA4CB0099DB5C /* ObservableState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +32,10 @@
 		000721EA269C7E040099DB5C /* AccountsPresenteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsPresenteractor.swift; sourceTree = "<group>"; };
 		000721EE269C7F1E0099DB5C /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		000721F3269C865B0099DB5C /* Configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
-		00072254269C8BD30099DB5C /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
+		00072254269C8BD30099DB5C /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		0007225B269C9D1D0099DB5C /* ValueChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueChange.swift; sourceTree = "<group>"; };
+		0007225E269C9D6C0099DB5C /* Invalidatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invalidatable.swift; sourceTree = "<group>"; };
+		00072263269CA4CB0099DB5C /* ObservableState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,15 +71,26 @@
 				000721E1269C7B570099DB5C /* Info.plist */,
 				000721EA269C7E040099DB5C /* AccountsPresenteractor.swift */,
 				000721D7269C7B550099DB5C /* AccountsViewController.swift */,
-				00072254269C8BD30099DB5C /* Observer.swift */,
+				00072259269C9D000099DB5C /* Common */,
 				000721D3269C7B550099DB5C /* AppDelegate.swift */,
 				000721EE269C7F1E0099DB5C /* RootViewController.swift */,
-				000721F3269C865B0099DB5C /* Configure.swift */,
 				000721DC269C7B570099DB5C /* Assets.xcassets */,
 				000721DE269C7B570099DB5C /* LaunchScreen.storyboard */,
 				000721D9269C7B550099DB5C /* Main.storyboard */,
 			);
 			path = FeaturePattern;
+			sourceTree = "<group>";
+		};
+		00072259269C9D000099DB5C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				000721F3269C865B0099DB5C /* Configure.swift */,
+				00072254269C8BD30099DB5C /* Observable.swift */,
+				00072263269CA4CB0099DB5C /* ObservableState.swift */,
+				0007225B269C9D1D0099DB5C /* ValueChange.swift */,
+				0007225E269C9D6C0099DB5C /* Invalidatable.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,10 +164,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				000721EB269C7E040099DB5C /* AccountsPresenteractor.swift in Sources */,
-				00072255269C8BD30099DB5C /* Observer.swift in Sources */,
+				00072264269CA4CB0099DB5C /* ObservableState.swift in Sources */,
+				0007225C269C9D1D0099DB5C /* ValueChange.swift in Sources */,
+				00072255269C8BD30099DB5C /* Observable.swift in Sources */,
 				000721D8269C7B550099DB5C /* AccountsViewController.swift in Sources */,
 				000721F4269C865B0099DB5C /* Configure.swift in Sources */,
 				000721D4269C7B550099DB5C /* AppDelegate.swift in Sources */,
+				0007225F269C9D6C0099DB5C /* Invalidatable.swift in Sources */,
 				000721EF269C7F1E0099DB5C /* RootViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
