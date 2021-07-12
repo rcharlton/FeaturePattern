@@ -28,7 +28,7 @@ class ObservableState<T>: PropertySubject<T> {
     }
 
     init(wrappedValue: T) {
-        super.init(value: wrappedValue)
+        super.init(wrappedValue)
     }
 
 }

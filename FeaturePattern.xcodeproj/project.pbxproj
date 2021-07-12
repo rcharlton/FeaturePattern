@@ -19,6 +19,7 @@
 		0007225C269C9D1D0099DB5C /* ValueChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0007225B269C9D1D0099DB5C /* ValueChange.swift */; };
 		0007225F269C9D6C0099DB5C /* Invalidatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0007225E269C9D6C0099DB5C /* Invalidatable.swift */; };
 		00072264269CA4CB0099DB5C /* ObservableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00072263269CA4CB0099DB5C /* ObservableState.swift */; };
+		00072269269CAAEE0099DB5C /* StateRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00072268269CAAEE0099DB5C /* StateRepresentable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		0007225B269C9D1D0099DB5C /* ValueChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueChange.swift; sourceTree = "<group>"; };
 		0007225E269C9D6C0099DB5C /* Invalidatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invalidatable.swift; sourceTree = "<group>"; };
 		00072263269CA4CB0099DB5C /* ObservableState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableState.swift; sourceTree = "<group>"; };
+		00072268269CAAEE0099DB5C /* StateRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateRepresentable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,10 +87,11 @@
 			isa = PBXGroup;
 			children = (
 				000721F3269C865B0099DB5C /* Configure.swift */,
+				0007225E269C9D6C0099DB5C /* Invalidatable.swift */,
 				00072254269C8BD30099DB5C /* Observable.swift */,
 				00072263269CA4CB0099DB5C /* ObservableState.swift */,
+				00072268269CAAEE0099DB5C /* StateRepresentable.swift */,
 				0007225B269C9D1D0099DB5C /* ValueChange.swift */,
-				0007225E269C9D6C0099DB5C /* Invalidatable.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 				000721F4269C865B0099DB5C /* Configure.swift in Sources */,
 				000721D4269C7B550099DB5C /* AppDelegate.swift in Sources */,
 				0007225F269C9D6C0099DB5C /* Invalidatable.swift in Sources */,
+				00072269269CAAEE0099DB5C /* StateRepresentable.swift in Sources */,
 				000721EF269C7F1E0099DB5C /* RootViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

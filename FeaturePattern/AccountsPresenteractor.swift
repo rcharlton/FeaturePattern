@@ -7,8 +7,14 @@
 
 import Foundation
 
-class AccountsPresenteractor: AccountsViewActions {
+class AccountsPresenteractor: AccountsViewController.Presenteractor {
+    let viewState: Observable<AccountsViewState> = PropertySubject(.initial)
+
     func setupAccounts() {
         print(type(of: self), #function)
     }
+}
+
+extension AccountsViewState {
+    static let initial = AccountsViewState(isSetupYourAccountsEnabled: false)
 }

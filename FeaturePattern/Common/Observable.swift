@@ -31,6 +31,23 @@ class Observable<T> {
     }
 }
 
+extension Observable {
+    func observe(with block: @escaping (T) -> Void) -> Observation {
+        observe { block($0.current) }
+    }
+}
+
+extension Observable where T: Equatable {
+    func observe(with block: @escaping (T) -> Void) -> Observation {
+        observe { (change: ValueChange<T>) in
+            guard change.isChanged else { return }
+            block(change.current)
+        }
+    }
+}
+
+// MARK: -
+
 private class ObservationRecord<T>: Observation {
     lazy var identifier: ObjectIdentifier = {
         ObjectIdentifier(self)
@@ -53,6 +70,8 @@ private class ObservationRecord<T>: Observation {
     }
 }
 
+// MARK: - PassthroughSubject
+
 /// Stateless observation subject. No value is sent on initial observation.
 /// Observations returned are NOT given the current value of the subject
 /// - Note: Returned observations must be retained by the caller.
@@ -70,6 +89,8 @@ class PassthroughSubject<T>: Observable<T> {
     }
 }
 
+// MARK: - PropertySubject
+
 /// Stateful observation subject.
 /// The current value is sent on first observation.
 /// - Note: Returned observations must be retained by the caller.
@@ -81,7 +102,7 @@ class PropertySubject<T>: Observable<T> {
         }
     }
 
-    init(value: T) {
+    init(_ value: T) {
         self.value = value
         super.init()
     }

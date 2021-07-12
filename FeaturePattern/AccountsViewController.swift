@@ -11,24 +11,17 @@ protocol AccountsViewActions {
     func setupAccounts()
 }
 
-class State {
-    let string1: Observable<String> = PropertySubject(value: "initial")
-
-    @ObservableState var string2: String = "First"
+struct AccountsViewState {
+    var isSetupYourAccountsEnabled: Bool
 }
 
+protocol AccountsViewStateProviding {
+    var viewState: Observable<AccountsViewState> { get }
+}
 
-class AccountsViewController: UIViewController {
-
-    typealias Presenteractor = AccountsViewActions
-
-    @UserDefault(key: "lrd") var lastRunDate: Date?
-
-    @ObservableState var string: String = "First"
-    let string1 = PassthroughSubject<String>()
-    let string2 = PropertySubject<String>(value: "cat")
-
-    let state = State()
+class AccountsViewController: UIViewController, StateRepresentable {
+    typealias Presenteractor = AccountsViewActions & AccountsViewStateProviding
+    typealias State = AccountsViewState
 
     private let setupYourAccountsButton = configure(UIButton(type: .system)) {
         $0.setTitle("Set-up Your Accounts", for: .normal)
@@ -46,23 +39,9 @@ class AccountsViewController: UIViewController {
 
         tabBarItem = UITabBarItem(title: "Accounts", image: nil, tag: 0)
 
-        let v1: ValueChange<Int> = .initial(123)
-        let v2: ValueChange<Int> = .unchanged(123)
-
-        observation = $string.observe {
-            print("Name changed from \($0.previous ?? "none") to \($0.current)")
+        observation = presenteractor.viewState.observe { [weak self] in
+            self?.setState($0)
         }
-
-        state.string1.observe {
-            print($0)
-        }
-        // state.string1 = "Hello" // cannot mutate
-
-        state.$string2.observe {
-            print($0)
-        }
-        state.string2 = "hello"
-
     }
 
     required init?(coder: NSCoder) {
@@ -71,12 +50,6 @@ class AccountsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        string = "Hello"
-        string = "There"
-
-        print(lastRunDate)
-        lastRunDate = Date()
 
         view.backgroundColor = .white
 
@@ -91,6 +64,11 @@ class AccountsViewController: UIViewController {
             action: #selector(setupYourAccountsButtonPressed),
             for: .touchUpInside
         )
+    }
+
+    func setState(_ state: State, animated isAnimated: Bool) {
+        print(#function, state)
+        setupYourAccountsButton.isEnabled = state.isSetupYourAccountsEnabled
     }
 
     @objc private func setupYourAccountsButtonPressed() {
