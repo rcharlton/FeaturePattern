@@ -15,3 +15,15 @@ extension StateRepresentable {
         setState(state, animated: false)
     }
 }
+
+extension StateRepresentable where Self: AnyObject {
+    func bind<T: Observable<State>>(
+        to observable: T,
+        animated isAnimating: Bool = false
+    ) -> Observation {
+        observable.observe { [weak self] (state: State) in
+            guard let self = self else { return }
+            self.setState(state, animated: isAnimating)
+        }
+    }
+}

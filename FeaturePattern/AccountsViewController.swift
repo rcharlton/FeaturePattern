@@ -7,6 +7,16 @@
 
 import UIKit
 
+protocol ViewEventHandling {
+    func viewDidLoad()
+    func viewWillAppear()
+}
+
+extension ViewEventHandling {
+    func viewDidLoad() { }
+    func viewWillAppear() { }
+}
+
 protocol AccountsViewActions {
     func setupAccounts()
 }
@@ -20,7 +30,7 @@ protocol AccountsViewStateProviding {
 }
 
 class AccountsViewController: UIViewController, StateRepresentable {
-    typealias Presenteractor = AccountsViewActions & AccountsViewStateProviding
+    typealias Presenteractor = AccountsViewActions & AccountsViewStateProviding & ViewEventHandling
     typealias State = AccountsViewState
 
     private let setupYourAccountsButton = configure(UIButton(type: .system)) {
@@ -28,7 +38,7 @@ class AccountsViewController: UIViewController, StateRepresentable {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    var observation: Observation?
+    private var observation: Observation?
 
     private let presenteractor: Presenteractor
 
@@ -39,9 +49,10 @@ class AccountsViewController: UIViewController, StateRepresentable {
 
         tabBarItem = UITabBarItem(title: "Accounts", image: nil, tag: 0)
 
-        observation = presenteractor.viewState.observe { [weak self] in
-            self?.setState($0)
-        }
+//        observation = presenteractor.viewState.observe { [weak self] in
+//            self?.setState($0)
+//        }
+        observation = bind(to: presenteractor.viewState)
     }
 
     required init?(coder: NSCoder) {
@@ -64,6 +75,13 @@ class AccountsViewController: UIViewController, StateRepresentable {
             action: #selector(setupYourAccountsButtonPressed),
             for: .touchUpInside
         )
+
+        presenteractor.viewDidLoad()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenteractor.viewWillAppear()
     }
 
     func setState(_ state: State, animated isAnimated: Bool) {
@@ -73,27 +91,6 @@ class AccountsViewController: UIViewController, StateRepresentable {
 
     @objc private func setupYourAccountsButtonPressed() {
         presenteractor.setupAccounts()
-    }
-
-}
-
-
-@propertyWrapper struct UserDefault<Value> {
-    let key: String
-    var userDefaults: UserDefaults = .standard
-
-    var wrappedValue: Value? {
-        get { userDefaults.value(forKey: key) as? Value }
-        set { userDefaults.setValue(newValue, forKey: key) }
-    }
-}
-
-
-@propertyWrapper class Test {
-
-    var wrappedValue: Int? {
-        get { 1 }
-        set { }
     }
 
 }
