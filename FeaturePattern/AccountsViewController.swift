@@ -8,10 +8,12 @@
 import UIKit
 
 protocol ViewActions {
-    /// Signal that the view is ready to present state and active behaviours such as timers should begin.
+    /// Signal that the view is ready to present state and active behaviours
+    /// such as timers should begin.
     func resume()
 
-    /// Signal that the view is no longer presenting state and active behaviours such as timers should pause.
+    /// Signal that the view is no longer presenting state and active behaviours
+    /// such as timers should pause.
     func suspend()
 }
 
@@ -22,8 +24,8 @@ extension ViewActions {
 
 // MARK: -
 
-/// Actions state WHAT rather than HOW. They are semantic / conceptual and do not mirror the private
-/// internals of the view hierarchy such as button presses and table view cell selections.
+/// Actions state WHAT rather than HOW. They are semantic / conceptual and do not mirror the
+/// internals of the view hierarchy such as button actions and table view cell selections.
 protocol AccountsViewActions: ViewActions {
     func setupAccounts()
 }
@@ -32,7 +34,7 @@ protocol AccountsViewActions: ViewActions {
 /// View properties are always private and never manipulated from outside the class.
 /// As with ViewActions, ViewState should not explicitly reflect the view hierarchy.
 struct AccountsViewState {
-    var isSetupYourAccountsEnabled: Bool
+    let isSetupYourAccountsEnabled: Bool
 }
 
 protocol AccountsViewStateProviding {
